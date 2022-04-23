@@ -2,6 +2,7 @@ package sample;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
 
 import java.util.ArrayList;
@@ -11,6 +12,25 @@ public class Types {
     private String typeAttributesNames; // private ObservableList<String> typeAttributesNames;
     private ArrayList<Items> typesItems = new ArrayList<>();
 
+    private ListView<String> typesItemsListView= new ListView<>();
+
+
+    static ArrayList<Types> typesArrayList = new ArrayList<>();
+    private ObservableList<Types> typeAttributesNamesList;
+
+
+    @FXML
+    private TitledPane typesTitledPane= new TitledPane();
+
+    public ListView<String> getTypesItemsListView() {
+        return typesItemsListView;
+    }
+
+    public void setTypesItemsListView(ListView<String> typesItemsListView) {
+        this.typesItemsListView = typesItemsListView;
+    }
+
+
     public TitledPane getTypesTitledPane() {
         return typesTitledPane;
     }
@@ -19,23 +39,21 @@ public class Types {
         this.typesTitledPane = typesTitledPane;
     }
 
-    @FXML
-    private TitledPane typesTitledPane= new TitledPane();
-
-
-    static ArrayList<Types> typesArrayList = new ArrayList<>();
-    private ObservableList<Types> typeAttributesNamesList;
 
 
 
-
-    public  Types(String typeName,ObservableList<Types> typeAttributesNamesList){
+//    public  Types(String typeName,ObservableList<Types> typeAttributesNamesList){
+//        this.typeName=typeName;
+//        this.typeAttributesNamesList=typeAttributesNamesList;
+//    }
+    public  Types(String typeName,String typeAttributesNames){
         this.typeName=typeName;
-        this.typeAttributesNamesList=typeAttributesNamesList;
+        this.typeAttributesNames=typeAttributesNames;
     }
-    public  Types(String typeName){
-        this.typeName=typeName;
+    public  Types(String typeAttributesNames){
+        this.typeAttributesNames=typeAttributesNames;
     }
+
     public String getTypeName() {
         return typeName;
     }

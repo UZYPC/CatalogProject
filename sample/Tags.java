@@ -1,5 +1,7 @@
 package sample;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
 
 import java.util.ArrayList;
@@ -14,7 +16,9 @@ public class Tags {
 
     static ArrayList<Tags> tagsArrayList = new ArrayList<>();
 
+    @FXML
     private TitledPane tagsTitledPane= new TitledPane();
+    private ListView<String> tagsItemsListView= new ListView<>();
 
 
 
@@ -52,5 +56,13 @@ public class Tags {
 
     public void setTagsTitledPane(TitledPane tagsTitledPane) {
         this.tagsTitledPane = tagsTitledPane;
+    }
+
+    public ListView<String> getTagsItemsListView() {
+        return tagsItemsListView;
+    }
+
+    public void setTagsItemsListView(ListView<String> tagsItemsListView) {
+        this.tagsItemsListView = tagsItemsListView;
     }
 }

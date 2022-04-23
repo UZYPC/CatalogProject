@@ -11,8 +11,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("TabPaneDeneme.fxml"));
-        //primaryStage.initStyle(StageStyle.UTILITY);
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Catalog");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }

@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 
 public class Items {
@@ -7,11 +8,36 @@ public class Items {
     private Tags itemTag;
     private Types itemType;
     private String itemName;
-    private String attributeValues;// private ObservableList<String> attributeValues;
+    private String attributeValues;
 
+
+    private ObservableList<String> itemAttributeValuesList;
 
     private ListView<String> itemTypeListView= new ListView<>();
     private ListView<String> itemTagListView= new ListView<>();
+
+    public Items(Tags itemTag, Types itemType, String itemName, ObservableList<String> itemAttributeValuesList) {
+        this.itemTag = itemTag;
+        this.itemType = itemType;
+        this.itemName = itemName;
+        this.itemAttributeValuesList = itemAttributeValuesList;
+    }//this is the one with tag
+
+    public Items(Types itemType, String itemName, ObservableList<String> itemAttributeValuesList) {
+        this.itemType = itemType;
+        this.itemName = itemName;
+        this.itemAttributeValuesList = itemAttributeValuesList;
+    }// this is the one without tag
+
+    public ObservableList<String> getItemAttributeValuesList() {
+        return itemAttributeValuesList;
+    }
+
+    public void setItemAttributeValuesList(ObservableList<String> itemAttributeValuesList) {
+        this.itemAttributeValuesList = itemAttributeValuesList;
+    }
+
+
 
 
 
