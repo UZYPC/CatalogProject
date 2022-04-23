@@ -1,3 +1,5 @@
+
+
 package sample;
 
 import javafx.collections.ObservableList;
@@ -42,7 +44,7 @@ public class Types {
 
 
 
-//    public  Types(String typeName,ObservableList<Types> typeAttributesNamesList){
+    //    public  Types(String typeName,ObservableList<Types> typeAttributesNamesList){
 //        this.typeName=typeName;
 //        this.typeAttributesNamesList=typeAttributesNamesList;
 //    }
@@ -53,6 +55,7 @@ public class Types {
     public  Types(String typeAttributesNames){
         this.typeAttributesNames=typeAttributesNames;
     }
+
 
     public String getTypeName() {
         return typeName;

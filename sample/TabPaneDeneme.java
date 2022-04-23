@@ -70,6 +70,8 @@ public class TabPaneDeneme implements Initializable {
 
     /**Type Page Components**/
     @FXML
+    private ComboBox<String> typeNameComboBox;
+    @FXML
     private Tab typeTab;
     @FXML
     private TextField typesTextField;
@@ -82,6 +84,8 @@ public class TabPaneDeneme implements Initializable {
 
 
     ObservableList<Types> list2 = FXCollections.observableArrayList();
+    ObservableList<Items> list3 = FXCollections.observableArrayList();
+    ObservableList<Types> list4 = FXCollections.observableArrayList();
 
     /**Tag Page Components**/
 
@@ -109,7 +113,10 @@ public class TabPaneDeneme implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         typeAttributesNames.setCellValueFactory(new PropertyValueFactory<Types, String>("typeAttributesNames"));
         this.itemAttrValue.setCellValueFactory(new PropertyValueFactory<Items,String>("attributeValues"));
+        typeAttrNameColumn.setCellValueFactory(new PropertyValueFactory<Types,String>("typeAttributesNames"));
         attrNameTableView.setItems(list2);
+        itemsAttrTableView.setItems(list3);
+
     }
     public void addAttributeValue() {
         if(!this.enterItemsAttrValue.getText().isEmpty()) {
@@ -154,7 +161,7 @@ public class TabPaneDeneme implements Initializable {
             return;
         }
         String tagsName = tagNameChoiceBox.getSelectionModel().getSelectedItem();
-        String typesName = typeNameChoiceBox.getSelectionModel().getSelectedItem();
+        String typesName = typeNameComboBox.getSelectionModel().getSelectedItem();
         Tags itemsTag= new Tags("");
         Types itemsType= new Types("","");
         for(int i =0;i<Tags.tagsArrayList.size();i++){
@@ -219,11 +226,15 @@ public class TabPaneDeneme implements Initializable {
         Types types= new Types(typesTextField.getText(),"atts");//list2 yerine başka birşey geliyo da olabilir
         types.getTypesTitledPane().setText(typesTextField.getText());
         typeTitledPaneVbox.getChildren().addAll(types.getTypesTitledPane());
-        typeNameChoiceBox.getItems().addAll(typesTextField.getText());
+        typeNameComboBox.getItems().addAll(typesTextField.getText());
         Types.typesArrayList.add(types);
         typesTextField.clear();
-        attrNameTableView.getItems().clear();
-        attrNameTableView.refresh();
+
+        typeNameComboBox.setOnAction(e ->
+                typeAttrTableView.setItems(list2));
+
+       // attrNameTableView.getColumns().clear();
+        //attrNameTableView.refresh();
 
     }
 
@@ -245,9 +256,12 @@ public class TabPaneDeneme implements Initializable {
     }
 
 
+
     public void deleteAttributeNameFromAttrNameTableView(){
         this.attrNameTableView.getItems().remove(this.attrNameTableView.getSelectionModel().getSelectedItem());
+        //this.typeAttrTableView.getItems().remove(this.typeAttrTableView.getSelectionModel().getSelectedItem());
     }
+
 
     public void editAttributeNameFromAttrNameTableView(){
         Types selectedItem = attrNameTableView.getSelectionModel().getSelectedItem();
@@ -278,11 +292,8 @@ public class TabPaneDeneme implements Initializable {
     /** deneme methodları **/
 
 
-
-
-
-
     }
+
 
 
 
