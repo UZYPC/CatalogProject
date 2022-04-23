@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.TabPaneDeneme">
+   <children>
+      <TabPane fx:id="tabPane" prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+            <Tab fx:id="mainTab" text="Main Page">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="338.0" layoutY="70.0" text="Welcome to the ">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="295.0" layoutY="96.0" text="CE216 Catalog Program">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Button layoutX="366.0" layoutY="170.0" mnemonicParsing="false" onAction="#goToNewTypePage" text="New Type" />
+                        <Button layoutX="366.0" layoutY="216.0" mnemonicParsing="false" onAction="#goToNewItemPage" text="New Item" />
+                        <Button layoutX="368.0" layoutY="272.0" mnemonicParsing="false" onAction="#goToNewTagPage" text="New Tag" />
+                        <Button layoutX="379.0" layoutY="321.0" mnemonicParsing="false" text="Help" />
+                     </children></AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="itemTab" text="New Item">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ChoiceBox fx:id="typeNameChoiceBox" layoutX="90.0" layoutY="148.0" prefWidth="150.0" />
+                        <ChoiceBox fx:id="tagNameChoiceBox" layoutX="90.0" layoutY="186.0" prefWidth="150.0" />
+                        <TextField fx:id="itemName" layoutX="90.0" layoutY="227.0" />
+                        <VBox layoutX="320.0" layoutY="-1.0" prefHeight="571.0" prefWidth="286.0">
+                           <children>
+                              <TableView fx:id="itemsAttrTableView" prefHeight="573.0" prefWidth="286.0">
+                                <columns>
+                                  <TableColumn fx:id="typeAttrName" prefWidth="138.66668701171875" text="Attribute Names" />
+                                  <TableColumn fx:id="itemAttrValue" minWidth="8.6666259765625" prefWidth="146.00003051757812" text="Attribute Values" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="606.0" layoutY="1.0" prefHeight="570.0" prefWidth="193.0">
+                           <children>
+                              <Accordion fx:id="accordion" prefHeight="568.0" prefWidth="193.0">
+                                <panes>
+                                  <TitledPane fx:id="typesTitledPane" animated="false" text="Types">
+                                    <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <VBox fx:id="typeTitledPaneVbox" layoutX="77.0" layoutY="22.0" prefHeight="492.0" prefWidth="191.33333333333334" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                             </children>
+                                          </AnchorPane>
+                                    </content>
+                                  </TitledPane>
+                                  <TitledPane fx:id="tagsTitledPane" animated="false" text="Tags">
+                                    <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <VBox fx:id="tagTitledPaneVbox" layoutX="36.0" layoutY="46.0" prefHeight="492.0" prefWidth="191.33333333333334" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                             </children></AnchorPane>
+                                    </content>
+                                  </TitledPane>
+                                </panes>
+                              </Accordion>
+                           </children>
+                        </VBox>
+                        <Label layoutX="14.0" layoutY="152.0" text="Select Type :" />
+                        <Label layoutX="17.0" layoutY="190.0" text="Select Tag :" />
+                        <Label layoutX="14.0" layoutY="231.0" text="Item Name :" />
+                        <TextField fx:id="enterItemsAttrValue" layoutX="89.0" layoutY="301.0" prefHeight="25.0" prefWidth="151.0" />
+                        <Label layoutX="18.0" layoutY="305.0" text="Attributes: " />
+                        <Button layoutX="90.0" layoutY="340.0" mnemonicParsing="false" onAction="#addAttributeValue" text="Add" />
+                        <Button layoutX="140.0" layoutY="340.0" mnemonicParsing="false" onAction="#deleteAttributeValue" text="Delete" />
+                        <Button layoutX="202.0" layoutY="340.0" mnemonicParsing="false" onAction="#editAttributeValue" text="Edit" />
+                        <Button layoutX="165.0" layoutY="482.0" mnemonicParsing="false" onAction="#createItem" text="Create Item" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+          <Tab fx:id="typeTab" text="New Type">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="typesTextField" layoutX="276.0" layoutY="145.0" prefHeight="25.0" prefWidth="236.0" />
+                        <TextField fx:id="attrNamesEntryTextField" layoutX="326.0" layoutY="195.0" prefHeight="25.0" prefWidth="155.0" />
+                        <TableView fx:id="attrNameTableView" layoutX="270.0" layoutY="249.0" prefHeight="243.0" prefWidth="230.0">
+                          <columns>
+                            <TableColumn fx:id="typeAttributesNames" prefWidth="228.66665649414062" text="Attribute Names" />
+                          </columns>
+                        </TableView>
+                        <Button layoutX="270.0" layoutY="520.0" mnemonicParsing="false" onAction="#deleteAttributeNameFromAttrNameTableView" text="Delete" />
+                        <Button layoutX="336.0" layoutY="520.0" mnemonicParsing="false" onAction="#editAttributeNameFromAttrNameTableView" text="Edit" />
+                        <Button layoutX="449.0" layoutY="520.0" mnemonicParsing="false" onAction="#typeAktarma" text="Create" />
+                        <Label layoutX="200.0" layoutY="149.0" text="Type Name:" />
+                        <Label layoutX="200.0" layoutY="199.0" text="Type Attribute Names:" />
+                        <Button layoutX="488.0" layoutY="195.0" mnemonicParsing="false" onAction="#addAttributeNameToAttrNameTableView" text="+" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab fx:id="tagTab" text="New Tag">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Button layoutX="542.0" layoutY="258.0" mnemonicParsing="false" onAction="#tagAktarma" text="Button">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                        </Button>
+                        <TextField fx:id="tagsTextField" layoutX="298.0" layoutY="257.0" prefHeight="40.0" prefWidth="203.0" />
+                        <Label layoutX="180.0" layoutY="258.0" prefHeight="37.0" prefWidth="84.0" text="Tag Name :">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="Untitled Tab">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ListView fx:id="tagsListView" layoutX="300.0" layoutY="185.0" prefHeight="200.0" prefWidth="200.0" />
+                        <Button layoutX="551.0" layoutY="360.0" mnemonicParsing="false" onAction="#showTagsArraylist" text="Button" />
+                        <TreeView fx:id="treeView" layoutX="25.0" layoutY="36.0" prefHeight="200.0" prefWidth="200.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
