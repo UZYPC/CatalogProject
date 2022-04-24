@@ -86,6 +86,7 @@ public class TabPaneDeneme implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        tagNameChoiceBox.getItems().add("");
 
     }
     public void addAttributeValue() {
@@ -225,6 +226,19 @@ public class TabPaneDeneme implements Initializable {
             return;
         }
 
+        for (int i=0;i<Types.typesArrayList.size();i++){
+            if (Types.typesArrayList.get(i).getTypeName().equals(typesTextField.getText())){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Error");
+                alert.setContentText("There is already a type with this name!");
+                alert.showAndWait();
+                typesTextField.clear();
+                typeAttrsListView.getItems().clear();
+                return;
+            }
+        }
+
         ArrayList<String> attrNamesOfThisType = new ArrayList<>(typeAttrsListView.getItems());
         Types type= new Types(typesTextField.getText(),attrNamesOfThisType);
         type.setTypeAttrNameCount(attrNamesOfThisType.size());
@@ -278,12 +292,27 @@ public class TabPaneDeneme implements Initializable {
     /** Tag Page Methods **/
     public void createTag(){
 
+        for (int i=0;i<Tags.tagsArrayList.size();i++){
+            if (Tags.tagsArrayList.get(i).getTagName().equals(tagsTextField.getText())){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Error");
+                alert.setContentText("There is already a tag with this name!");
+                alert.showAndWait();
+                tagsTextField.clear();
+                return;
+            }
+        }
+
+
         Tags tag = new Tags(tagsTextField.getText());
         tag.getTagsTitledPane().setText(tagsTextField.getText());
         tagTitledPaneVbox.getChildren().addAll(tag.getTagsTitledPane());
         tagNameChoiceBox.getItems().addAll(tagsTextField.getText());
         tagsTextField.clear();
         Tags.tagsArrayList.add(tag);
+
+
 
     }
 
