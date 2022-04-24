@@ -1,7 +1,6 @@
-
-
 package sample;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
@@ -11,18 +10,24 @@ import java.util.ArrayList;
 
 public class Types {
     private String typeName;
-    private String typeAttributesNames; // private ObservableList<String> typeAttributesNames;
+    private String typeAttributesNames;
     private ArrayList<Items> typesItems = new ArrayList<>();
+    private ObservableList<Types> typeAttributesNamesList = FXCollections.observableArrayList();
+    private ListView<String> typesItemsListView = new ListView<>();
+    private int typeAttrNameCount;
 
-    private ListView<String> typesItemsListView= new ListView<>();
 
 
     static ArrayList<Types> typesArrayList = new ArrayList<>();
-    private ObservableList<Types> typeAttributesNamesList;
+    private ArrayList<String> typeAttrNameArrayList= new ArrayList<>();
 
+    public Types(String typeName, ArrayList<String> typeAttrNameArrayList) {
+        this.typeName = typeName;
+        this.typeAttrNameArrayList = typeAttrNameArrayList;
+    }
 
     @FXML
-    private TitledPane typesTitledPane= new TitledPane();
+    private TitledPane typesTitledPane = new TitledPane();
 
     public ListView<String> getTypesItemsListView() {
         return typesItemsListView;
@@ -42,20 +47,23 @@ public class Types {
     }
 
 
-
-
     //    public  Types(String typeName,ObservableList<Types> typeAttributesNamesList){
 //        this.typeName=typeName;
 //        this.typeAttributesNamesList=typeAttributesNamesList;
 //    }
-    public  Types(String typeName,String typeAttributesNames){
-        this.typeName=typeName;
-        this.typeAttributesNames=typeAttributesNames;
-    }
-    public  Types(String typeAttributesNames){
-        this.typeAttributesNames=typeAttributesNames;
+    public Types(String typeName, String typeAttributesNames) {
+        this.typeName = typeName;
+        this.typeAttributesNames = typeAttributesNames;
     }
 
+    public Types(String typeAttributesNames) {
+        this.typeAttributesNames = typeAttributesNames;
+    }
+
+    public Types(String typeName, ObservableList<Types> typeAttributesNamesList) {
+        this.typeName = typeName;
+        this.typeAttributesNamesList = typeAttributesNamesList;
+    }
 
     public String getTypeName() {
         return typeName;
@@ -90,7 +98,6 @@ public class Types {
         this.typesArrayList = typesArrayList;
     }
 
-
     public ObservableList<Types> getTypeAttributesNamesList() {
         return typeAttributesNamesList;
     }
@@ -98,4 +105,25 @@ public class Types {
     public void setTypeAttributesNamesList(ObservableList<Types> typeAttributesNamesList) {
         this.typeAttributesNamesList = typeAttributesNamesList;
     }
+
+    public ArrayList<String> getTypeAttrNameArrayList() {
+        return typeAttrNameArrayList;
+    }
+
+    public void setTypeAttrNameArrayList(ArrayList<String> typeAttrNameArrayList) {
+        this.typeAttrNameArrayList = typeAttrNameArrayList;
+    }
+
+    public int getTypeAttrNameCount() {
+        return typeAttrNameCount;
+    }
+
+    public void setTypeAttrNameCount(int typeAttrNameCount) {
+        this.typeAttrNameCount = typeAttrNameCount;
+    }
 }
+
+
+
+
+

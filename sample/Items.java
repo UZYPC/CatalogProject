@@ -3,6 +3,8 @@ package sample;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 
+import java.util.ArrayList;
+
 public class Items {
 
     private Tags itemTag;
@@ -10,32 +12,25 @@ public class Items {
     private String itemName;
     private String attributeValues;
 
-
-    private ObservableList<String> itemAttributeValuesList;
+    private ArrayList<String> itemsAttributeValueList= new ArrayList<>();
 
     private ListView<String> itemTypeListView= new ListView<>();
     private ListView<String> itemTagListView= new ListView<>();
 
-    public Items(Tags itemTag, Types itemType, String itemName, ObservableList<String> itemAttributeValuesList) {
+    public Items(Tags itemTag, Types itemType, String itemName, ArrayList<String> itemsAttributeValueList) {
         this.itemTag = itemTag;
         this.itemType = itemType;
         this.itemName = itemName;
-        this.itemAttributeValuesList = itemAttributeValuesList;
+        this.itemsAttributeValueList = itemsAttributeValueList;
     }//this is the one with tag
 
-    public Items(Types itemType, String itemName, ObservableList<String> itemAttributeValuesList) {
+    public Items(Types itemType, String itemName, ArrayList<String> itemsAttributeValueList) {
         this.itemType = itemType;
         this.itemName = itemName;
-        this.itemAttributeValuesList = itemAttributeValuesList;
+        this.itemsAttributeValueList = itemsAttributeValueList;
     }// this is the one without tag
 
-    public ObservableList<String> getItemAttributeValuesList() {
-        return itemAttributeValuesList;
-    }
 
-    public void setItemAttributeValuesList(ObservableList<String> itemAttributeValuesList) {
-        this.itemAttributeValuesList = itemAttributeValuesList;
-    }
 
 
 
@@ -109,4 +104,12 @@ public class Items {
     public void setItemTagListView(ListView<String> itemTagListView) {
         this.itemTagListView = itemTagListView;
     }
+    public ArrayList<String> getItemsAttributeValueList() {
+        return itemsAttributeValueList;
+    }
+
+    public void setItemsAttributeValueList(ArrayList<String> itemsAttributeValueList) {
+        this.itemsAttributeValueList = itemsAttributeValueList;
+    }
+
 }

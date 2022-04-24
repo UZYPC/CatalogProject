@@ -5,17 +5,16 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.TabPaneDeneme">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.TabPaneDeneme">
     <children>
         <TabPane fx:id="tabPane" prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
@@ -46,15 +45,6 @@
                             <children>
                                 <ChoiceBox fx:id="tagNameChoiceBox" layoutX="90.0" layoutY="186.0" prefWidth="150.0" />
                                 <TextField fx:id="itemName" layoutX="90.0" layoutY="227.0" />
-                                <VBox layoutX="462.0" layoutY="-1.0" prefHeight="571.0" prefWidth="144.0">
-                                    <children>
-                                        <TableView fx:id="itemsAttrTableView" prefHeight="571.0" prefWidth="192.0">
-                                            <columns>
-                                                <TableColumn fx:id="itemAttrValue" minWidth="8.6666259765625" prefWidth="142.00006103515625" text="Attribute Values" />
-                                            </columns>
-                                        </TableView>
-                                    </children>
-                                </VBox>
                                 <VBox layoutX="606.0" layoutY="1.0" prefHeight="570.0" prefWidth="193.0">
                                     <children>
                                         <Accordion fx:id="accordion" prefHeight="568.0" prefWidth="193.0">
@@ -85,16 +75,22 @@
                                 <Label layoutX="14.0" layoutY="231.0" text="Item Name :" />
                                 <TextField fx:id="enterItemsAttrValue" layoutX="89.0" layoutY="301.0" prefHeight="25.0" prefWidth="151.0" />
                                 <Label layoutX="18.0" layoutY="305.0" text="Attributes: " />
-                                <Button layoutX="90.0" layoutY="340.0" mnemonicParsing="false" onAction="#addAttributeValue" text="Add" />
-                                <Button layoutX="140.0" layoutY="340.0" mnemonicParsing="false" onAction="#deleteAttributeValue" text="Delete" />
-                                <Button layoutX="202.0" layoutY="340.0" mnemonicParsing="false" onAction="#editAttributeValue" text="Edit" />
+                                <Button layoutX="70.0" layoutY="340.0" mnemonicParsing="false" onAction="#addAttributeValue" text="Add" />
+                                <Button layoutX="127.0" layoutY="340.0" mnemonicParsing="false" onAction="#deleteAttributeValue" text="Delete Attribute Value" />
                                 <Button layoutX="165.0" layoutY="482.0" mnemonicParsing="false" onAction="#createItem" text="Create Item" />
-                                <TableView fx:id="typeAttrTableView" layoutX="318.0" layoutY="-1.0" prefHeight="574.0" prefWidth="144.0">
-                                    <columns>
-                                        <TableColumn fx:id="typeAttrNameColumn" prefWidth="142.66665649414062" text="Attribute Names" />
-                                    </columns>
-                                </TableView>
-                        <ComboBox fx:id="typeNameComboBox" layoutX="90.0" layoutY="148.0" onAction="#typeAktarma" prefWidth="150.0" />
+                                <ComboBox fx:id="typeNameComboBox" layoutX="90.0" layoutY="148.0" onAction="#typeComboBoxOnAction" prefWidth="150.0" />
+                        <ListView fx:id="showTypeAttrValuesInItemPage" layoutX="316.0" layoutY="24.0" prefHeight="547.0" prefWidth="145.0" />
+                        <Label layoutX="342.0" layoutY="4.0" text="Attribute Names">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                        <ListView fx:id="itemsAttrValuesListView" layoutX="460.0" layoutY="24.0" prefHeight="547.0" prefWidth="145.0" />
+                        <Label layoutX="490.0" layoutY="5.0" text="Attribute Values">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
                             </children>
                         </AnchorPane>
                     </content>
@@ -105,17 +101,12 @@
                             <children>
                                 <TextField fx:id="typesTextField" layoutX="276.0" layoutY="145.0" prefHeight="25.0" prefWidth="236.0" />
                                 <TextField fx:id="attrNamesEntryTextField" layoutX="326.0" layoutY="195.0" prefHeight="25.0" prefWidth="155.0" />
-                                <TableView fx:id="attrNameTableView" layoutX="270.0" layoutY="249.0" prefHeight="243.0" prefWidth="230.0">
-                                    <columns>
-                                        <TableColumn fx:id="typeAttributesNames" prefWidth="228.66665649414062" text="Attribute Names" />
-                                    </columns>
-                                </TableView>
-                                <Button layoutX="270.0" layoutY="520.0" mnemonicParsing="false" onAction="#deleteAttributeNameFromAttrNameTableView" text="Delete" />
-                                <Button layoutX="336.0" layoutY="520.0" mnemonicParsing="false" onAction="#editAttributeNameFromAttrNameTableView" text="Edit" />
-                                <Button layoutX="449.0" layoutY="520.0" mnemonicParsing="false" onAction="#typeAktarma" text="Create" />
+                                <Button layoutX="293.0" layoutY="520.0" mnemonicParsing="false" onAction="#deleteAttributeNameFromAttrNameListView" text="Delete Attribute Name" />
+                                <Button layoutX="449.0" layoutY="520.0" mnemonicParsing="false" onAction="#createType" text="Create" />
                                 <Label layoutX="200.0" layoutY="149.0" text="Type Name:" />
                                 <Label layoutX="200.0" layoutY="199.0" text="Type Attribute Names:" />
-                                <Button layoutX="488.0" layoutY="195.0" mnemonicParsing="false" onAction="#addAttributeNameToAttrNameTableView" text="+" />
+                                <Button layoutX="488.0" layoutY="195.0" mnemonicParsing="false" onAction="#addAttributeNameListView" text="+" />
+                        <ListView fx:id="typeAttrsListView" layoutX="294.0" layoutY="259.0" prefHeight="200.0" prefWidth="200.0" />
                             </children>
                         </AnchorPane>
                     </content>
@@ -124,20 +115,61 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <Button layoutX="542.0" layoutY="258.0" mnemonicParsing="false" onAction="#tagAktarma" text="Create">
-                                    <font>
-                                        <Font size="17.0" />
-                                    </font>
-                                </Button>
                                 <TextField fx:id="tagsTextField" layoutX="298.0" layoutY="257.0" prefHeight="40.0" prefWidth="203.0" />
                                 <Label layoutX="180.0" layoutY="258.0" prefHeight="37.0" prefWidth="84.0" text="Tag Name :">
                                     <font>
                                         <Font size="16.0" />
                                     </font>
                                 </Label>
+                                <Button layoutX="542.0" layoutY="258.0" mnemonicParsing="false" onAction="#createTag" text="Create">
+                                    <font>
+                                        <Font size="17.0" />
+                                    </font>
+                                </Button>
                             </children></AnchorPane>
                     </content>
                 </Tab>
+            <Tab text="Edit/Delete Type">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ListView layoutX="38.0" layoutY="143.0" prefHeight="200.0" prefWidth="200.0" />
+                        <Button layoutX="74.0" layoutY="372.0" mnemonicParsing="false" text="Delete Selected Type" />
+                        <Label layoutX="14.0" layoutY="103.0" prefHeight="39.0" prefWidth="293.0" text="Tüm Typeler aşağı sıralanacak ve seçtiği typeı silecek" />
+                        <ListView layoutX="433.0" layoutY="143.0" prefHeight="200.0" prefWidth="200.0" />
+                        <Button layoutX="422.0" layoutY="384.0" mnemonicParsing="false" text="Edit Attr Name" />
+                        <ComboBox layoutX="458.0" layoutY="90.0" prefWidth="150.0" />
+                        <Button layoutX="541.0" layoutY="384.0" mnemonicParsing="false" text="Delete Attr Name" />
+                        <Label layoutX="633.0" layoutY="94.0" text="Type ı burdan seçecek" />
+                        <Label layoutX="400.0" layoutY="475.0" text="Seçtiği typeın attr namelerinin olduğu arraylist sıralancak listviewda " />
+                        <Button layoutX="513.0" layoutY="424.0" mnemonicParsing="false" text="Save" />
+                        <Button layoutX="111.0" layoutY="424.0" mnemonicParsing="false" text="Save" />
+                        <Label layoutX="375.0" layoutY="501.0" text="Sonra değiştirmek yada silmek istediğinin üzerine tıklayarak yapacak işlemleri" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Edit/Delete Item">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ComboBox layoutX="261.0" layoutY="41.0" prefHeight="39.0" prefWidth="205.0" />
+                        <ListView layoutX="45.0" layoutY="185.0" prefHeight="200.0" prefWidth="200.0" />
+                        <Button layoutX="93.0" layoutY="404.0" mnemonicParsing="false" text="Delete Item" />
+                        <Button layoutX="111.0" layoutY="439.0" mnemonicParsing="false" text="Save" />
+                        <ListView layoutX="442.0" layoutY="185.0" prefHeight="200.0" prefWidth="200.0" />
+                        <ComboBox layoutX="467.0" layoutY="126.0" prefWidth="150.0" />
+                        <Button layoutX="467.0" layoutY="404.0" mnemonicParsing="false" text="Delete Value" />
+                        <Button layoutX="572.0" layoutY="404.0" mnemonicParsing="false" text="Edit Value" />
+                        <Button layoutX="530.0" layoutY="451.0" mnemonicParsing="false" text="Save" />
+                        <Label layoutX="132.0" layoutY="52.0" text="Type ı seçicek burdan" />
+                        <Label layoutX="77.0" layoutY="151.0" text="Seçtiği typein itemleri burada sıralanacak" />
+                        <Label layoutX="628.0" layoutY="130.0" text="Itemi seçecek burfdan" />
+                        <Label layoutX="360.0" layoutY="507.0" text="Itemin attr valueları sıralanacak yuakrda sorna onları edit delete yapacak" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
             </tabs>
         </TabPane>
     </children>

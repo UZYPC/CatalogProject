@@ -5,9 +5,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class TabPaneDeneme implements Initializable {
@@ -23,21 +23,17 @@ public class TabPaneDeneme implements Initializable {
     @FXML
     private Tab itemTab;
     @FXML
-    private TableView<Items> itemsAttrTableView;
+    private TableView<Items> itemsAttrTableView;//kullanılmıyacak
     @FXML
-    private TableColumn<Items, String> itemAttrValue;
+    private TableColumn<Items, String> itemAttrValue;//kullanılmıyacak
     @FXML
-    private TableView<Types> typeAttrTableView;
-    @FXML
-    private TableColumn<Types,String> typeAttrNameColumn;
-    @FXML
-    private Types types;
+    private TableColumn<Types,String> typeAttrNameColumn;//kullanılmıyacak
     @FXML
     private TextField enterItemsAttrValue;
     @FXML
     private TextField itemName;
     @FXML
-    private ChoiceBox<String> tagNameChoiceBox;//TextField tagName da olabilir
+    private ChoiceBox<String> tagNameChoiceBox;
     @FXML
     private ChoiceBox<String> typeNameChoiceBox;
     @FXML
@@ -45,28 +41,10 @@ public class TabPaneDeneme implements Initializable {
     @FXML
     private VBox tagTitledPaneVbox;
     @FXML
-    private Button add;
+    ListView<String> showTypeAttrValuesInItemPage= new ListView<>();
     @FXML
-    private Button delete;
-    @FXML
-    private Button edit;
-    @FXML
-    private Button addValue;
-    @FXML
-    private Button deleteValue;
-    @FXML
-    private Button editValue;
-    @FXML
-    private Button save;
-    @FXML
-    private Accordion accordion;
-    @FXML
-    private TitledPane typesTitledPane;
-    @FXML
-    private TitledPane tagsTitledPane;
-//    @FXML
-//    Item item;
-
+    ListView<String> itemsAttrValuesListView= new ListView<>();
+    private int attrValueCount;
 
     /**Type Page Components**/
     @FXML
@@ -78,14 +56,11 @@ public class TabPaneDeneme implements Initializable {
     @FXML
     private TextField attrNamesEntryTextField;
     @FXML
-    private TableView<Types> attrNameTableView;
+    private TableView<Types> attrNameTableView;//kullanılmıyacak
     @FXML
-    private TableColumn<Types,String> typeAttributesNames;
-
-
-    ObservableList<Types> list2 = FXCollections.observableArrayList();
-    ObservableList<Items> list3 = FXCollections.observableArrayList();
-    ObservableList<Types> list4 = FXCollections.observableArrayList();
+    private TableColumn<Types,String> typeAttributesNames;//kullanılmıyacak
+    @FXML
+    ListView<String> typeAttrsListView= new ListView<>();
 
     /**Tag Page Components**/
 
@@ -111,19 +86,32 @@ public class TabPaneDeneme implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        typeAttributesNames.setCellValueFactory(new PropertyValueFactory<Types, String>("typeAttributesNames"));
-        this.itemAttrValue.setCellValueFactory(new PropertyValueFactory<Items,String>("attributeValues"));
-        typeAttrNameColumn.setCellValueFactory(new PropertyValueFactory<Types,String>("typeAttributesNames"));
-        attrNameTableView.setItems(list2);
-        itemsAttrTableView.setItems(list3);
 
     }
     public void addAttributeValue() {
         if(!this.enterItemsAttrValue.getText().isEmpty()) {
-            String value = this.enterItemsAttrValue.getText();
-            Items item = new Items(value);
-            this.itemsAttrTableView.getItems().add(item);
-            this.enterItemsAttrValue.clear();
+
+            Types type = new Types("","");
+            String typeName = typeNameComboBox.getSelectionModel().getSelectedItem();
+
+            for(int i =0;i<Types.typesArrayList.size();i++) {
+                if (Types.typesArrayList.get(i).getTypeName().equals(typeName)) {
+                    type = Types.typesArrayList.get(i);
+                }
+            }
+            if(type.getTypeAttrNameCount()<=attrValueCount){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Error");
+                alert.setContentText("You can't add attribute values anymore!");
+                alert.showAndWait();
+            }
+            else {
+                String value = this.enterItemsAttrValue.getText();
+                itemsAttrValuesListView.getItems().add(value);
+                enterItemsAttrValue.clear();
+                attrValueCount++;
+            }
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -133,22 +121,10 @@ public class TabPaneDeneme implements Initializable {
         }
     }
     public void deleteAttributeValue() {
-        Items item = this.itemsAttrTableView.getSelectionModel().getSelectedItem();
-        this.itemsAttrTableView.getItems().remove(item);
+        itemsAttrValuesListView.getItems().remove(itemsAttrValuesListView.getSelectionModel().getSelectedItem());
     }
     public void editAttributeValue() {
-        Items selectedItem = itemsAttrTableView.getSelectionModel().getSelectedItem();
-        if (enterItemsAttrValue.getText().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Error");
-            alert.setContentText("Please enter attribute value");
-            alert.showAndWait();
-        }
-        else {
-            selectedItem.setAttributeValues(enterItemsAttrValue.getText());
-        }
-        itemsAttrTableView.refresh();
+
     }
     public void createItem(){
         String itemsName =itemName.getText();
@@ -183,8 +159,20 @@ public class TabPaneDeneme implements Initializable {
             alert.showAndWait();
             return;
         }
+        if(!(itemsType.getTypeAttrNameCount()==attrValueCount)){
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error");
+            alert.setContentText("Type Attributes Values are not completed!");
+            alert.showAndWait();
+            return;
+        }
+
+        ArrayList<String> itemsAttrValueArrayList=new ArrayList<>(itemsAttrValuesListView.getItems());
+
         if(itemsTag.equals(new Tags(""))){
-            Items item = new Items( itemsType, itemsName, "attrs");
+            Items item = new Items( itemsType, itemsName, itemsAttrValueArrayList);
             //TODO: attribute valueları observable list olarak almamız gerek. Items classında private observale list -
             //TODO: itemattrvalue variableı oluşturup constructor oluşturulacak.
 
@@ -199,9 +187,8 @@ public class TabPaneDeneme implements Initializable {
         }
 
         else {
-            Items item = new Items(itemsTag, itemsType, itemsName, "attrs");
-            //TODO: attribute valueları observable list olarak almamız gerek. Items classında private observale list -
-            //TODO: itemattrvalue variableı oluşturup constructor oluşturulacak.
+            Items item = new Items(itemsTag, itemsType, itemsName, itemsAttrValueArrayList);
+
 
             itemsType.getTypesItems().add(item);
             itemsTag.getTagsItems().add(item);
@@ -215,6 +202,11 @@ public class TabPaneDeneme implements Initializable {
         }
 
 
+
+        itemsAttrValuesListView.getItems().clear();
+        attrValueCount=0;
+
+
     }
 
 
@@ -222,27 +214,48 @@ public class TabPaneDeneme implements Initializable {
 
 
     /** Type Page Methods **/
-    public void typeAktarma(){
-        Types types= new Types(typesTextField.getText(),"atts");//list2 yerine başka birşey geliyo da olabilir
-        types.getTypesTitledPane().setText(typesTextField.getText());
-        typeTitledPaneVbox.getChildren().addAll(types.getTypesTitledPane());
+
+    public void createType(){
+        if (typeAttrsListView.getItems().size()==0){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error");
+            alert.setContentText("Please enter attribute name");
+            alert.showAndWait();
+            return;
+        }
+
+        ArrayList<String> attrNamesOfThisType = new ArrayList<>(typeAttrsListView.getItems());
+        Types type= new Types(typesTextField.getText(),attrNamesOfThisType);
+        type.setTypeAttrNameCount(attrNamesOfThisType.size());
+        type.getTypesTitledPane().setText(typesTextField.getText());
+        typeTitledPaneVbox.getChildren().addAll(type.getTypesTitledPane());
         typeNameComboBox.getItems().addAll(typesTextField.getText());
-        Types.typesArrayList.add(types);
+        Types.typesArrayList.add(type);
         typesTextField.clear();
-
-        typeNameComboBox.setOnAction(e ->
-                typeAttrTableView.setItems(list2));
-
-       // attrNameTableView.getColumns().clear();
-        //attrNameTableView.refresh();
+        typeAttrsListView.getItems().clear();
+        tabPane.getSelectionModel().select(itemTab);
 
     }
+    public void typeComboBoxOnAction() {
+        attrValueCount=0;
+        showTypeAttrValuesInItemPage.getItems().clear();
+        itemsAttrValuesListView.getItems().clear();
+        Types tempType = new Types("", "");
+        for (int i = 0; i < Types.typesArrayList.size(); i++) {
+            if (Types.typesArrayList.get(i).getTypeName().equals(typeNameComboBox.getSelectionModel().getSelectedItem())) {
+                tempType = Types.typesArrayList.get(i);
+            }
+        }
 
-    public void addAttributeNameToAttrNameTableView(){
+        for (int i = 0; i < tempType.getTypeAttrNameArrayList().size(); i++) {
+            showTypeAttrValuesInItemPage.getItems().add(tempType.getTypeAttrNameArrayList().get(i));
+        }
+    }
+    public void addAttributeNameListView(){
         if (!attrNamesEntryTextField.getText().isEmpty()){
             String attrNames = attrNamesEntryTextField.getText();
-            Types type = new Types(attrNames);
-            attrNameTableView.getItems().add(type);
+            typeAttrsListView.getItems().add(attrNames);
             attrNamesEntryTextField.clear();
         }
 
@@ -250,28 +263,20 @@ public class TabPaneDeneme implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Error");
-            alert.setContentText("Please enter attribute name");
+            alert.setContentText("Attribute cannot be empty");
             alert.showAndWait();
         }
     }
 
 
 
-    public void deleteAttributeNameFromAttrNameTableView(){
-        this.attrNameTableView.getItems().remove(this.attrNameTableView.getSelectionModel().getSelectedItem());
-        //this.typeAttrTableView.getItems().remove(this.typeAttrTableView.getSelectionModel().getSelectedItem());
+    public void deleteAttributeNameFromAttrNameListView(){
+        typeAttrsListView.getItems().remove(typeAttrsListView.getSelectionModel().getSelectedItem());
     }
 
-
-    public void editAttributeNameFromAttrNameTableView(){
-        Types selectedItem = attrNameTableView.getSelectionModel().getSelectedItem();
-        selectedItem.setTypeAttributesNames(attrNamesEntryTextField.getText());
-        this.attrNameTableView.refresh();
-
-    }
 
     /** Tag Page Methods **/
-    public void tagAktarma(){
+    public void createTag(){
 
         Tags tag = new Tags(tagsTextField.getText());
         tag.getTagsTitledPane().setText(tagsTextField.getText());
@@ -279,9 +284,6 @@ public class TabPaneDeneme implements Initializable {
         tagNameChoiceBox.getItems().addAll(tagsTextField.getText());
         tagsTextField.clear();
         Tags.tagsArrayList.add(tag);
-
-
-
 
     }
 
@@ -292,8 +294,11 @@ public class TabPaneDeneme implements Initializable {
     /** deneme methodları **/
 
 
-    }
 
 
 
 
+
+
+
+}
