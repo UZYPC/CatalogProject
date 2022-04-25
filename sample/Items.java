@@ -21,13 +21,11 @@ public class Items {
         this.itemTag = itemTag;
         this.itemType = itemType;
         this.itemName = itemName;
-        this.itemsAttributeValueList = itemsAttributeValueList;
     }//this is the one with tag
 
     public Items(Types itemType, String itemName) {
         this.itemType = itemType;
         this.itemName = itemName;
-        this.itemsAttributeValueList = itemsAttributeValueList;
     }// this is the one without tag
 
 
