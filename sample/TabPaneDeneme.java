@@ -123,6 +123,8 @@ public class TabPaneDeneme implements Initializable {
     }
     public void deleteAttributeValue() {
         itemsAttrValuesListView.getItems().remove(itemsAttrValuesListView.getSelectionModel().getSelectedItem());
+        attrValueCount--;
+
     }
     public void editAttributeValue() {
 
