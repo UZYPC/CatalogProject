@@ -17,14 +17,14 @@ public class Items {
     private ListView<String> itemTypeListView= new ListView<>();
     private ListView<String> itemTagListView= new ListView<>();
 
-    public Items(Tags itemTag, Types itemType, String itemName, ArrayList<String> itemsAttributeValueList) {
+    public Items(Tags itemTag, Types itemType, String itemName) {
         this.itemTag = itemTag;
         this.itemType = itemType;
         this.itemName = itemName;
         this.itemsAttributeValueList = itemsAttributeValueList;
     }//this is the one with tag
 
-    public Items(Types itemType, String itemName, ArrayList<String> itemsAttributeValueList) {
+    public Items(Types itemType, String itemName) {
         this.itemType = itemType;
         this.itemName = itemName;
         this.itemsAttributeValueList = itemsAttributeValueList;

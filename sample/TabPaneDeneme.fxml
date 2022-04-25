@@ -133,18 +133,19 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ListView layoutX="38.0" layoutY="143.0" prefHeight="200.0" prefWidth="200.0" />
-                        <Button layoutX="74.0" layoutY="372.0" mnemonicParsing="false" text="Delete Selected Type" />
+                        <ListView fx:id="deleteTypeListView" layoutX="38.0" layoutY="143.0" prefHeight="200.0" prefWidth="200.0" />
+                        <Button layoutX="74.0" layoutY="372.0" mnemonicParsing="false" onAction="#deleteSelectedType" text="Delete Selected Type" />
                         <Label layoutX="14.0" layoutY="103.0" prefHeight="39.0" prefWidth="293.0" text="Tüm Typeler aşağı sıralanacak ve seçtiği typeı silecek" />
-                        <ListView layoutX="433.0" layoutY="143.0" prefHeight="200.0" prefWidth="200.0" />
+                        <ListView fx:id="editDeleteTypeAttrNamesListView" layoutX="433.0" layoutY="131.0" prefHeight="200.0" prefWidth="200.0" />
                         <Button layoutX="422.0" layoutY="384.0" mnemonicParsing="false" text="Edit Attr Name" />
-                        <ComboBox layoutX="458.0" layoutY="90.0" prefWidth="150.0" />
-                        <Button layoutX="541.0" layoutY="384.0" mnemonicParsing="false" text="Delete Attr Name" />
+                        <ComboBox fx:id="selectTypeComboBox" layoutX="458.0" layoutY="90.0" onAction="#selectTypeComboBoxOnAction" prefWidth="150.0" />
+                        <Button layoutX="541.0" layoutY="384.0" mnemonicParsing="false" onAction="#deleteSelectedTypeAttrName" text="Delete Attr Name" />
                         <Label layoutX="633.0" layoutY="94.0" text="Type ı burdan seçecek" />
                         <Label layoutX="400.0" layoutY="475.0" text="Seçtiği typeın attr namelerinin olduğu arraylist sıralancak listviewda " />
                         <Button layoutX="513.0" layoutY="424.0" mnemonicParsing="false" text="Save" />
                         <Button layoutX="111.0" layoutY="424.0" mnemonicParsing="false" text="Save" />
                         <Label layoutX="375.0" layoutY="501.0" text="Sonra değiştirmek yada silmek istediğinin üzerine tıklayarak yapacak işlemleri" />
+                        <TextField fx:id="editTypeAttrNamesTextField" layoutX="459.0" layoutY="347.0" />
                      </children>
                   </AnchorPane>
               </content>
@@ -153,12 +154,12 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ComboBox layoutX="261.0" layoutY="41.0" prefHeight="39.0" prefWidth="205.0" />
-                        <ListView layoutX="45.0" layoutY="185.0" prefHeight="200.0" prefWidth="200.0" />
-                        <Button layoutX="93.0" layoutY="404.0" mnemonicParsing="false" text="Delete Item" />
+                        <ComboBox fx:id="editItemSelectedTypeComboBox" layoutX="261.0" layoutY="41.0" onAction="#editItemSelectedTypeComboBoxOnAction" prefHeight="39.0" prefWidth="205.0" />
+                        <ListView fx:id="selectedTypesItemsListView" layoutX="45.0" layoutY="185.0" prefHeight="200.0" prefWidth="200.0" />
+                        <Button layoutX="93.0" layoutY="404.0" mnemonicParsing="false" onAction="#deleteSelectedItem" text="Delete Item" />
                         <Button layoutX="111.0" layoutY="439.0" mnemonicParsing="false" text="Save" />
-                        <ListView layoutX="442.0" layoutY="185.0" prefHeight="200.0" prefWidth="200.0" />
-                        <ComboBox layoutX="467.0" layoutY="126.0" prefWidth="150.0" />
+                        <ListView fx:id="selectedItemsAttrValuesListView" layoutX="442.0" layoutY="160.0" prefHeight="200.0" prefWidth="200.0" />
+                        <ComboBox fx:id="selectItemComboBox" layoutX="467.0" layoutY="126.0" onAction="#selectItemComboBoxOnAction" prefWidth="150.0" />
                         <Button layoutX="467.0" layoutY="404.0" mnemonicParsing="false" text="Delete Value" />
                         <Button layoutX="572.0" layoutY="404.0" mnemonicParsing="false" text="Edit Value" />
                         <Button layoutX="530.0" layoutY="451.0" mnemonicParsing="false" text="Save" />
@@ -166,6 +167,7 @@
                         <Label layoutX="77.0" layoutY="151.0" text="Seçtiği typein itemleri burada sıralanacak" />
                         <Label layoutX="628.0" layoutY="130.0" text="Itemi seçecek burfdan" />
                         <Label layoutX="360.0" layoutY="507.0" text="Itemin attr valueları sıralanacak yuakrda sorna onları edit delete yapacak" />
+                        <TextField fx:id="editItemsAttributeValueTextField" layoutX="475.0" layoutY="372.0" />
                      </children>
                   </AnchorPane>
               </content>

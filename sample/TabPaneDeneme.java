@@ -70,6 +70,182 @@ public class TabPaneDeneme implements Initializable {
     private TextField tagsTextField;
 
 
+    /** Edit/Delete Type Components **/
+
+    @FXML
+    private ListView<String> deleteTypeListView = new ListView<>();
+    @FXML
+    private ListView<String> editDeleteTypeAttrNamesListView = new ListView<>();
+    @FXML
+    private ComboBox<String> selectTypeComboBox;
+    @FXML
+    private TextField editTypeAttrNamesTextField;
+
+
+    /** Edit Delete/Item Components **/
+    @FXML
+    private ComboBox <String> editItemSelectedTypeComboBox;
+    @FXML
+    private ListView<String>  selectedTypesItemsListView;
+    @FXML
+    private ListView<String> selectedItemsAttrValuesListView;
+    @FXML
+    private ComboBox <String> selectItemComboBox;
+    @FXML
+    private TextField editItemsAttributeValueTextField;
+
+
+
+    /** Edit Delete/Item Methods**/
+
+    public void editItemSelectedTypeComboBoxOnAction(){
+        selectItemComboBox.getItems().clear();
+        selectedTypesItemsListView.getItems().clear();
+
+        Types temp = new Types("", "");
+        for (int i = 0; i < Types.typesArrayList.size(); i++) {
+            if (Types.typesArrayList.get(i).getTypeName().equals(
+                    editItemSelectedTypeComboBox.getSelectionModel().getSelectedItem()))
+                temp=Types.typesArrayList.get(i);
+        }
+
+        for (int i =0;i<temp.getTypesItems().size();i++){
+            selectedTypesItemsListView.getItems().addAll(temp.getTypesItems().get(i).getItemName());
+        }
+
+        for (int i =0;i<temp.getTypesItems().size();i++){
+            selectItemComboBox.getItems().addAll(temp.getTypesItems().get(i).getItemName());
+        }
+    }
+
+    public void selectItemComboBoxOnAction(){
+        selectedItemsAttrValuesListView.getItems().clear();
+
+
+        Types temp= new Types("","");
+        Items item = new Items("");
+        for (int i = 0; i < Types.typesArrayList.size(); i++) {
+            if (Types.typesArrayList.get(i).getTypeName().equals(
+                    editItemSelectedTypeComboBox.getSelectionModel().getSelectedItem()))
+                temp=Types.typesArrayList.get(i);
+        }
+        for (int i =0;i<temp.getTypesItems().size();i++){
+            if(temp.getTypesItems().get(i).getItemName().equals(selectItemComboBox.getSelectionModel().getSelectedItem())){
+                item=temp.getTypesItems().get(i);
+            }
+        }
+
+        for (int i=0;i<item.getItemsAttributeValueList().size();i++){
+            selectedItemsAttrValuesListView.getItems().addAll(item.getItemsAttributeValueList().get(i));
+        }
+
+    }
+    public void deleteSelectedItem(){
+        Types type=new Types("","");
+        Items item = new Items("");
+
+        selectedTypesItemsListView.getSelectionModel().getSelectedItem();
+
+        for(int i =0;i<Types.typesArrayList.size();i++){
+            if(Types.typesArrayList.get(i).getTypeName().equals(editItemSelectedTypeComboBox.getSelectionModel().getSelectedItem())){
+                type=Types.typesArrayList.get(i);
+            }
+        }
+
+        for (int i =0;i<type.getTypesItems().size();i++){
+            if(type.getTypesItems().get(i).getItemName().equals(selectedTypesItemsListView.getSelectionModel().getSelectedItem())){
+                item=type.getTypesItems().get(i);
+                type.getTypesItems().remove(item);
+                type.getTypesItemsListView().getItems().remove(item.getItemName());
+                selectedTypesItemsListView.getItems().remove(item.getItemName());
+                selectItemComboBox.getItems().remove(item.getItemName());
+
+            }
+
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /** Edit/Delete Type Methods **/
+
+
+    public void deleteSelectedType(){
+        Types type;
+        deleteTypeListView.getSelectionModel().getSelectedItem();
+
+        for(int i =0;i<Types.typesArrayList.size();i++){
+            if(Types.typesArrayList.get(i).getTypeName().equals(deleteTypeListView.getSelectionModel().getSelectedItem())){
+                type=Types.typesArrayList.get(i);
+                Types.typesArrayList.remove(type);
+
+                typeTitledPaneVbox.getChildren().removeAll(type.getTypesTitledPane());
+                typeNameComboBox.getItems().removeAll(type.getTypeName());
+                deleteTypeListView.getItems().removeAll(type.getTypeName());
+                selectTypeComboBox.getItems().removeAll(type.getTypeName());
+                editItemSelectedTypeComboBox.getItems().removeAll(type.getTypeName());
+
+            }
+        }
+    }
+
+    public void selectTypeComboBoxOnAction(){
+        editDeleteTypeAttrNamesListView.getItems().clear();
+
+        Types type= new Types("","");
+        selectTypeComboBox.getSelectionModel().getSelectedItem();
+        for(int i =0;i<Types.typesArrayList.size();i++){
+            if(Types.typesArrayList.get(i).getTypeName().equals(selectTypeComboBox.getSelectionModel().getSelectedItem())){
+                type=Types.typesArrayList.get(i);
+            }
+        }
+        for (int i =0;i<type.getTypeAttrNameArrayList().size();i++){
+            editDeleteTypeAttrNamesListView.getItems().add(type.getTypeAttrNameArrayList().get(i));
+        }
+
+
+    }
+
+    public void deleteSelectedTypeAttrName(){
+        Types type= new Types("","");
+        for(int i =0;i<Types.typesArrayList.size();i++){
+            if(Types.typesArrayList.get(i).getTypeName().equals(selectTypeComboBox.getSelectionModel().getSelectedItem())){
+                type=Types.typesArrayList.get(i);
+            }
+        }
+        if(type.getTypeAttrNameArrayList().size()<=1){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error");
+            alert.setContentText("You can't remove attributes anymore!");
+            alert.showAndWait();
+            return;
+
+        }
+        type.getTypeAttrNameArrayList().remove(editDeleteTypeAttrNamesListView.getSelectionModel().getSelectedItem());
+        editDeleteTypeAttrNamesListView.getItems().remove(editDeleteTypeAttrNamesListView.getSelectionModel().getSelectedItem());
+    }
 
     /**Main Page Methods**/
     public void goToNewTypePage(){
@@ -87,7 +263,6 @@ public class TabPaneDeneme implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tagNameChoiceBox.getItems().add("");
-
     }
     public void addAttributeValue() {
         if(!this.enterItemsAttrValue.getText().isEmpty()) {
@@ -130,6 +305,7 @@ public class TabPaneDeneme implements Initializable {
 
     }
     public void createItem(){
+        Items item= new Items("");
         String itemsName =itemName.getText();
         if (itemsName.equals("")) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -154,6 +330,20 @@ public class TabPaneDeneme implements Initializable {
             }
 
         }
+        for(int i =0;i<itemsType.getTypesItems().size();i++){
+            if(itemsType.getTypesItems().get(i).getItemName().equals(itemsName)){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Error");
+                alert.setContentText("This item name was used before!");
+                alert.showAndWait();
+                itemsAttrValuesListView.getItems().clear();
+                return;
+            }
+        }
+
+
+
         if (itemsType.getTypeName().equals("")){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -172,25 +362,35 @@ public class TabPaneDeneme implements Initializable {
             return;
         }
 
-        ArrayList<String> itemsAttrValueArrayList=new ArrayList<>(itemsAttrValuesListView.getItems());
+
 
         if(itemsTag.equals(new Tags(""))){
-            Items item = new Items( itemsType, itemsName, itemsAttrValueArrayList);
+
+
+            item = new Items( itemsType, itemsName);
+            for(int i =0;i<itemsAttrValuesListView.getItems().size();i++){
+                item.getItemsAttributeValueList().add(itemsAttrValuesListView.getItems().get(i));
+            }
             //TODO: attribute valueları observable list olarak almamız gerek. Items classında private observale list -
             //TODO: itemattrvalue variableı oluşturup constructor oluşturulacak.
 
             itemsType.getTypesItems().add(item);
-
-
             itemsType.getTypesTitledPane().setContent(item.getItemTypeListView());
             item.getItemTypeListView().getItems().add(item.getItemName());
+
+
+
 
             itemName.clear();
 
         }
 
         else {
-            Items item = new Items(itemsTag, itemsType, itemsName, itemsAttrValueArrayList);
+
+            item = new Items(itemsTag, itemsType, itemsName);
+            for(int i =0;i<itemsAttrValuesListView.getItems().size();i++){
+                item.getItemsAttributeValueList().add(itemsAttrValuesListView.getItems().get(i));
+            }
 
 
             itemsType.getTypesItems().add(item);
@@ -247,6 +447,9 @@ public class TabPaneDeneme implements Initializable {
         type.getTypesTitledPane().setText(typesTextField.getText());
         typeTitledPaneVbox.getChildren().addAll(type.getTypesTitledPane());
         typeNameComboBox.getItems().addAll(typesTextField.getText());
+        deleteTypeListView.getItems().add(typesTextField.getText());
+        selectTypeComboBox.getItems().add(typesTextField.getText());
+        editItemSelectedTypeComboBox.getItems().add(typesTextField.getText());
         Types.typesArrayList.add(type);
         typesTextField.clear();
         typeAttrsListView.getItems().clear();
@@ -254,6 +457,7 @@ public class TabPaneDeneme implements Initializable {
 
     }
     public void typeComboBoxOnAction() {
+
         attrValueCount=0;
         showTypeAttrValuesInItemPage.getItems().clear();
         itemsAttrValuesListView.getItems().clear();
@@ -323,6 +527,10 @@ public class TabPaneDeneme implements Initializable {
 
 
     /** deneme methodları **/
+    @FXML
+    private ComboBox<String> edititem_typeselect_deneme;
+
+
 
 
 
