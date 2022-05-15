@@ -1,24 +1,25 @@
 package sample;
 
-import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 
 import java.util.ArrayList;
 
 public class Items {
 
-    private Tags itemTag;
+    private ArrayList<Tags> itemTag = new ArrayList<>();
     private Types itemType;
     private String itemName;
     private String attributeValues;
+
+    static ArrayList<Items> itemsArrayList = new ArrayList<>();
 
     private ArrayList<String> itemsAttributeValueList= new ArrayList<>();
 
     private ListView<String> itemTypeListView= new ListView<>();
     private ListView<String> itemTagListView= new ListView<>();
 
-    public Items(Tags itemTag, Types itemType, String itemName) {
-        this.itemTag = itemTag;
+    public Items(ArrayList<Tags> itemTag , Types itemType, String itemName) {
+        this.itemTag=itemTag;
         this.itemType = itemType;
         this.itemName = itemName;
     }//this is the one with tag
@@ -44,23 +45,15 @@ public class Items {
         this.itemName = itemName;
         this.attributeValues = attributeValues;
     }
-    public Items(Tags itemTag, Types itemType, String itemName, String attributeValues) {
-        this.itemTag = itemTag;
-        this.itemType = itemType;
+
+
+    public Items(String itemName, ArrayList<String> itemsAttributeValueList) {
         this.itemName = itemName;
-        this.attributeValues = attributeValues;
+        this.itemsAttributeValueList = itemsAttributeValueList;
     }
 
 
 
-
-    public Tags getItemTag() {
-        return itemTag;
-    }
-
-    public void setItemTag(Tags itemTag) {
-        this.itemTag = itemTag;
-    }
 
     public Types getItemType() {
         return itemType;
@@ -110,4 +103,11 @@ public class Items {
         this.itemsAttributeValueList = itemsAttributeValueList;
     }
 
+    public ArrayList<Tags> getItemTag() {
+        return itemTag;
+    }
+
+    public void setItemTag(ArrayList<Tags> itemTag) {
+        this.itemTag = itemTag;
+    }
 }

@@ -26,6 +26,11 @@ public class Tags {
         this.tagName = tagName;
     }
 
+    public Tags(String tagName, ArrayList<Items> tagsItems) {
+        this.tagName = tagName;
+        this.tagsItems = tagsItems;
+    }
+
     public String getTagName() {
         return tagName;
     }
