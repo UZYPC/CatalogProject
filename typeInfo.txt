@@ -1,0 +1,3 @@
+Books, Title, Author, Edition, Year
+Games, Game Company, Game Type, Platform
+Movies, Movie Name, Genre, Publish Year
