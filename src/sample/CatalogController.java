@@ -108,6 +108,9 @@ public class CatalogController implements Initializable {
     private ComboBox<String> selectTypeComboBox;
     @FXML
     private TextField editTypeAttrNamesTextField;
+    @FXML
+    private TextField addTypeAttrNamesTextField;
+
 
 
     /** Edit Delete/Item Components **/
@@ -137,12 +140,9 @@ public class CatalogController implements Initializable {
         readType();
         readItem();
         readTag();
-        searchField.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                if (keyEvent.getCode().equals(KeyCode.ENTER)){
-                    search();
-                }
+        searchField.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode().equals(KeyCode.ENTER)){
+                search();
             }
         });
 
@@ -190,9 +190,8 @@ public class CatalogController implements Initializable {
     }
 
 
-    public void closeProgram() throws IOException {
-        // ask if they want to save or not
-        //if they want to save then
+    public void closeProgram() {
+
         try {
             writeType();
             writeItem();
@@ -472,6 +471,41 @@ public class CatalogController implements Initializable {
         editDeleteTypeAttrNamesListView.getItems().set(editDeleteTypeAttrNamesListView.getSelectionModel().getSelectedIndex(),editTypeAttrNamesTextField.getText());
     }
 
+    public void addAttrNameToSelectedType(){
+        Types type=new Types("","");
+
+        for(int i =0;i<Types.typesArrayList.size();i++){
+            if (selectTypeComboBox.getSelectionModel().getSelectedItem() == null){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Error");
+                alert.setContentText("Please select a type!");
+                alert.showAndWait();
+                return;
+
+            }
+            if(Types.typesArrayList.get(i).getTypeName().equals(selectTypeComboBox.getSelectionModel().getSelectedItem())){
+                type=Types.typesArrayList.get(i);
+            }
+        }
+        type.setTypeAttrNameCount(type.getTypeAttrNameCount()+1);
+        editDeleteTypeAttrNamesListView.getItems().add(addTypeAttrNamesTextField.getText());
+        type.getTypeAttrNameArrayList().add(addTypeAttrNamesTextField.getText());
+
+
+        for (int i =0;i<type.getTypesItems().size();i++){
+            type.getTypesItems().get(i).getItemsAttributeValueList().add("null");
+        }
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText("Information");
+        alert.setContentText("Please now edit all items from edit/delete items page. ");
+        alert.showAndWait();
+
+        addTypeAttrNamesTextField.clear();
+
+    }
+
 
     /**Main Page Methods**/
     public void goToNewTypePage(){
@@ -502,13 +536,7 @@ public class CatalogController implements Initializable {
             return;
         }
         tag.setTagSelectionCountForFiltering(1);
-//        for (int i =0;i<filterResultsListView.getItems().size();i++){
-//            for (int j =0;j<tag.getTagsItems().size();j++){
-//                if(!(tag.getTagsItems().get(j).getItemName().equals(filterResultsListView.getItems().get(i)))){
-//                    filterResultsListView.getItems().add(tag.getTagsItems().get(j).getItemName());
-//                }
-//            }
-//        }
+
         for (int j = 0; j < tag.getTagsItems().size(); j++) {
             for (int i = 0; i < filterResultsListView.getItems().size(); i++) {
                 if ((tag.getTagsItems().get(j).getItemName().equals(filterResultsListView.getItems().get(i)))) {
@@ -601,8 +629,6 @@ public class CatalogController implements Initializable {
 
         return itemInfo.toString();
     }
-
-
 
 
     /** Item Page Methods **/
