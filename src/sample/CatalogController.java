@@ -9,13 +9,9 @@ import javafx.print.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
-
-import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
-import javafx.scene.transform.Scale;
 import javafx.stage.FileChooser;
 
 
@@ -981,6 +977,7 @@ public class CatalogController implements Initializable {
         FileWriter w = new FileWriter("typeInfo.txt", false);
         Formatter f = new Formatter(w);
 
+
         for (Types t : Types.typesArrayList) {
             f.format("%s, ", t.getTypeName());
 
@@ -1027,25 +1024,6 @@ public class CatalogController implements Initializable {
         }
     }
 
-//    public void writeType() throws IOException {
-//        FileWriter w = new FileWriter("typeInfo.txt", false);
-//        Formatter f = new Formatter(w);
-//
-//        for (Types t : Types.typesArrayList) {
-//            f.format("%s, ", t.getTypeName());
-//
-//            for (int i = 0; i < t.getTypeAttrNameArrayList().size(); i++) {
-//                f.format("%s", t.getTypeAttrNameArrayList().get(i));
-//
-//                if (i != t.getTypeAttrNameArrayList().size() - 1) {
-//                    f.format(", ");
-//                }
-//            }
-//            f.format("%n");
-//        }
-//        f.close();
-//        w.close();
-//    }
 
     public void writeTag() throws IOException {
         FileWriter w = new FileWriter("tagInfo.txt", false);
@@ -1067,35 +1045,6 @@ public class CatalogController implements Initializable {
         w.close();
     }
 
-//    public void readType() {
-//        try {
-//            Scanner s = new Scanner(Paths.get("typeInfo.txt"));
-//            typeTitledPaneVbox.getChildren().clear();
-//
-//            while (s.hasNextLine()) {
-//                String[] line = s.nextLine().split(",");
-//
-//                for (int i = 0; i < line.length; i++) {
-//                    line[i] = line[i].trim();
-//                }
-//
-//                ArrayList<String> typeAttrNames = new ArrayList<>(Arrays.asList(line).subList(1, line.length));
-//                Types type = new Types(line[0], typeAttrNames);
-//                Types.typesArrayList.add(type);
-//                type.setTypeAttrNameCount(typeAttrNames.size());
-//                typeNameComboBox.getItems().addAll(type.getTypeName());
-//                type.getTypesTitledPane().setText(type.getTypeName());
-//                typeTitledPaneVbox.getChildren().addAll(type.getTypesTitledPane());
-//                deleteTypeListView.getItems().add(type.getTypeName());
-//                selectTypeComboBox.getItems().add(type.getTypeName());
-//                editItemSelectedTypeComboBox.getItems().add(type.getTypeName());
-//                searchArrayList.add("Type: "+type.getTypeName());
-//            }
-//            s.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
     public void readTag() {
         try {
             Scanner s = new Scanner(Paths.get("tagInfo.txt"));
