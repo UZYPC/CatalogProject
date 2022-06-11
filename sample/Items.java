@@ -52,7 +52,11 @@ public class Items {
         this.itemsAttributeValueList = itemsAttributeValueList;
     }
 
-
+    public Items(Types itemType, String itemName, ArrayList<String> itemsAttributeValueList) {
+        this.itemType = itemType;
+        this.itemName = itemName;
+        this.itemsAttributeValueList = itemsAttributeValueList;
+    }
 
 
     public Types getItemType() {
